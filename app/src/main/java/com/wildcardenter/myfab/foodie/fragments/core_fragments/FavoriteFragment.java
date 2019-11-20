@@ -4,12 +4,17 @@ package com.wildcardenter.myfab.foodie.fragments.core_fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.wildcardenter.myfab.foodie.R;
+import com.wildcardenter.myfab.foodie.adapters.FavouriteAdapter;
+import com.wildcardenter.myfab.foodie.viewmodels.MainMenuViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,7 +67,16 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view= inflater.inflate(R.layout.fragment_favorite, container, false);
+        MainMenuViewModel viewModel=ViewModelProviders.of(this).get(MainMenuViewModel.class);
+        RecyclerView favRecycler=view.findViewById(R.id.favourite_recycler);
+        LinearLayoutManager manager=new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+        favRecycler.setLayoutManager(manager);
+        FavouriteAdapter adapter=new FavouriteAdapter(getContext());
+        adapter.setProducts(viewModel.dummyProducts());
+        favRecycler.setAdapter(adapter);
+
+        return view;
     }
 
 }

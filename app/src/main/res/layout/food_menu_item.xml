@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="8dp"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/food_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp">
+        <ImageView
+            android:id="@+id/food_menu_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/cheese"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/foodmenu_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/price_background"
+            android:drawableStart="@drawable/ic_rupee_indian"
+            android:elevation="8dp"
+            android:fontFamily="@font/carter_one"
+            android:padding="8dp"
+            android:text="50"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/foodmenu_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/galada"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="0dp"
+        android:text="La Tomati Pizza"
+        android:textColor="#272626"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

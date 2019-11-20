@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#EF5350</color>
+    <color name="colorPrimaryDark">#b61827</color>
     <color name="colorAccent">#D81B60</color>
     <color name="splashBackground">#FF5757</color>
     <color name="loginStatusColor">#E1D52245</color>
+    <color name="white">#D3E9E3E3</color>
+    <color name="black">#131212</color>
 </resources>

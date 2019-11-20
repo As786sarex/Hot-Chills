@@ -15,8 +15,10 @@ import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+
 @Entity(tableName = "products")
-public class Product {
+public class Product implements Serializable {
     @PrimaryKey
     @NonNull
     private String productName;
@@ -47,11 +49,12 @@ public class Product {
     public Product() {
     }
 
+    @NotNull
     public String getProductName() {
         return productName;
     }
 
-    public void setProductName(String productName) {
+    public void setProductName(@NotNull String productName) {
         this.productName = productName;
     }
 
