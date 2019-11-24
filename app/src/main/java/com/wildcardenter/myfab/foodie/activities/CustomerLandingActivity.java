@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.wildcardenter.myfab.foodie.R;
@@ -15,6 +16,7 @@ import com.wildcardenter.myfab.foodie.fragments.core_fragments.CartFragment;
 import com.wildcardenter.myfab.foodie.fragments.core_fragments.FavoriteFragment;
 import com.wildcardenter.myfab.foodie.fragments.core_fragments.MainMenuFragment;
 import com.wildcardenter.myfab.foodie.fragments.core_fragments.ProfileFragment;
+import com.wildcardenter.myfab.foodie.viewmodels.MainMenuViewModel;
 
 
 public class CustomerLandingActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -38,6 +40,8 @@ public class CustomerLandingActivity extends AppCompatActivity implements Bottom
                 .hide(profileFragment).commit();
         fm.beginTransaction().add(R.id.customer_container, mainMenuFragment, "1").commit();
         navigationView.setOnNavigationItemSelectedListener(this);
+        MainMenuViewModel mainMenuViewModel= ViewModelProviders.of(this).get(MainMenuViewModel.class);
+        mainMenuViewModel.sysnProductWithServer();
         getWindow().setStatusBarColor(getResources().getColor(R.color.white));
     }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_pending_order"
+        android:title="@string/order_pending"
+        android:icon="@drawable/ic_food"
+        />
+    <item android:id="@+id/nav_all_products"
+        android:title="@string/all_products0"
+        android:icon="@drawable/ic_check_white_24dp"
+        />
+    <item
+        android:id="@+id/nav_bill_print"
+        android:title="Print Bill"
+        android:icon="@drawable/ic_attach_money_black_24dp"/>
+</menu>

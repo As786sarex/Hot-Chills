@@ -6,6 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.wildcardenter.myfab.foodie.models.CartItems;
+import com.wildcardenter.myfab.foodie.models.Favorite;
 import com.wildcardenter.myfab.foodie.models.Product;
 
 
@@ -15,11 +17,11 @@ import com.wildcardenter.myfab.foodie.models.Product;
     Created by Asif Mondal on 03-10-2019 at 20:08
 */
 
-@Database(entities = {Product.class}, version = 1)
+@Database(entities = {Product.class, CartItems.class, Favorite.class}, version = 2)
 public abstract class ProductDatabase extends RoomDatabase {
     private static ProductDatabase instance = null;
 
-    public static ProductDatabase getDatabase(final Context context) {
+    static ProductDatabase getDatabase(final Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context, ProductDatabase.class, "Product_Database")
                     .fallbackToDestructiveMigration()
@@ -29,5 +31,7 @@ public abstract class ProductDatabase extends RoomDatabase {
 
     }
     public abstract ProductDao getProductDao();
+    public abstract CartItemDao getCartItemDao();
+    public abstract FavoriteDao getFavDao();
 
 }

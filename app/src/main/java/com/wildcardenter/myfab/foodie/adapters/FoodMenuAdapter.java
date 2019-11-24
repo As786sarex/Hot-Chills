@@ -27,54 +27,65 @@ import java.util.List;
 public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.FoodMenuViewHolder> {
 
     private Context context;
-    List<Product> products;
+    private List<Product> products;
     private OnClickListener onClickListener;
 
-    public FoodMenuAdapter(Context context, List<Product> products) {
+    public FoodMenuAdapter(Context context) {
         this.context = context;
-        this.products = products;
     }
-    public interface OnClickListener{
+
+    public void setProducts(List<Product> lp) {
+        if (products!=null)
+            products=null;
+        this.products = lp;
+        notifyDataSetChanged();
+    }
+
+    public interface OnClickListener {
         void onClick(int position);
 
     }
-    public void setOnClickListener(OnClickListener listener){
-        this.onClickListener=listener;
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.onClickListener = listener;
     }
 
     @NonNull
     @Override
     public FoodMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FoodMenuViewHolder(LayoutInflater.from(context).inflate(R.layout.food_menu_item,parent,false));
+        return new FoodMenuViewHolder(LayoutInflater.from(context).inflate(R.layout.food_menu_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull FoodMenuViewHolder holder, int position) {
-        Product p=products.get(position);
-        Picasso.with(context).load(p.getImageUrls()).into(holder.image);
-        holder.name.setText(p.getProductName());
-        holder.price.setText( String.valueOf(p.getProductPrice()));
+        if (products != null) {
+            Product p = products.get(position);
+            Picasso.with(context).load(p.getImageUrls()).into(holder.image);
+            holder.name.setText(p.getProductName());
+            holder.price.setText(String.valueOf(p.getProductPrice()));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return products != null ? products.size() : 0;
     }
 
-    class FoodMenuViewHolder extends RecyclerView.ViewHolder{
+    class FoodMenuViewHolder extends RecyclerView.ViewHolder {
         View cardview;
         ImageView image;
-        TextView price,name;
+        TextView price, name;
+
         FoodMenuViewHolder(@NonNull View itemView) {
             super(itemView);
-            image=itemView.findViewById(R.id.food_menu_image);
-            price=itemView.findViewById(R.id.foodmenu_price);
-            name=itemView.findViewById(R.id.foodmenu_name);
-            cardview=itemView.findViewById(R.id.food_item_container);
+            image = itemView.findViewById(R.id.food_menu_image);
+            price = itemView.findViewById(R.id.foodmenu_price);
+            name = itemView.findViewById(R.id.foodmenu_name);
+            cardview = itemView.findViewById(R.id.food_item_container);
             cardview.setOnClickListener(v -> {
-                if (onClickListener!=null){
-                    int pos=getAdapterPosition();
-                    if (pos!=RecyclerView.NO_POSITION){
+                if (onClickListener != null) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
                         onClickListener.onClick(pos);
                     }
                 }

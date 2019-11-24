@@ -14,11 +14,13 @@ public class Order {
     private int tableNo;
     private String uid;
     private int amount;
+    private long timestamp;
     private String orderDate;
     private List<String> itemNames;
 
-    public Order(String orderName, int tableNo, String uid, int amount, String orderDate, List<String> itemNames) {
+    public Order(String orderName, int tableNo, String uid, int amount, long timestamp, String orderDate, List<String> itemNames) {
         this.orderName = orderName;
+        this.timestamp = timestamp;
         this.tableNo = tableNo;
         this.uid = uid;
         this.amount = amount;
@@ -27,6 +29,22 @@ public class Order {
     }
 
     public Order() {
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getTableNo() {
+        return tableNo;
+    }
+
+    public void setTableNo(int tableNo) {
+        this.tableNo = tableNo;
     }
 
     public String getOrderName() {

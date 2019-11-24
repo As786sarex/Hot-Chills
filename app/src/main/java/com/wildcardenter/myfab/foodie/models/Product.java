@@ -21,6 +21,7 @@ import java.io.Serializable;
 public class Product implements Serializable {
     @PrimaryKey
     @NonNull
+    private String productId;
     private String productName;
     private String productDesc;
     private String imageUrls;
@@ -28,6 +29,7 @@ public class Product implements Serializable {
     private String category;
     private int isTrending;
     private int productPrice;
+
     @Ignore
     public Product(@NotNull String productName, String productDesc, String imageUrls, String category, int isTrending, int productPrice) {
         this.productName = productName;
@@ -36,6 +38,27 @@ public class Product implements Serializable {
         this.category = category;
         this.isTrending = isTrending;
         this.productPrice = productPrice;
+    }
+
+    @Ignore
+    public Product(@NonNull String productId, String productName, String productDesc,
+                   String imageUrls, String category, int isTrending, int productPrice) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productDesc = productDesc;
+        this.imageUrls = imageUrls;
+        this.category = category;
+        this.isTrending = isTrending;
+        this.productPrice = productPrice;
+    }
+
+    @NonNull
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(@NonNull String productId) {
+        this.productId = productId;
     }
 
     public int getIsTrending() {

@@ -11,22 +11,11 @@ import java.util.List;
 
 public class Customer extends User {
 
-    List<CardInfo> cardInfo;
     List<String> orderIds;
-    public Customer(String name, String email, String uid, int acCode,List<CardInfo> cardInfo,List<String> orderId) {
+    public Customer(String name, String email, String uid, int acCode,List<String> orderId) {
         super(name, email, uid, acCode);
-        this.cardInfo=cardInfo;
         this.orderIds=orderId;
     }
-
-    public List<CardInfo> getCardInfo() {
-        return cardInfo;
-    }
-
-    public void setCardInfo(List<CardInfo> cardInfo) {
-        this.cardInfo = cardInfo;
-    }
-
     public List<String> getOrderIds() {
         return orderIds;
     }

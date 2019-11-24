@@ -22,7 +22,7 @@ public interface ProductDao {
     @Insert(onConflict = REPLACE)
     void saveProduct(List<Product> products);
 
-    @Query("Select * from products;")
+    @Query("Select * from products")
     LiveData<List<Product>> getAllProducts();
 
     @Query("select * from products where category=:category")

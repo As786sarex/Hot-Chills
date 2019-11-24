@@ -14,12 +14,17 @@ import android.view.ViewGroup;
 
 import com.wildcardenter.myfab.foodie.R;
 import com.wildcardenter.myfab.foodie.adapters.CartAdapter;
+import com.wildcardenter.myfab.foodie.models.Product;
 import com.wildcardenter.myfab.foodie.viewmodels.MainMenuViewModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements CartAdapter.OnItemIteractListener {
+
+    private List<Product> list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,9 +36,20 @@ public class CartFragment extends Fragment {
                 RecyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
         CartAdapter adapter=new CartAdapter(getContext());
-        adapter.setProductList(viewModel.dummyProducts());
+        list=viewModel.dummyProducts();
+        adapter.setProductList(list);
+
         recyclerView.setAdapter(adapter);
         return view;
     }
 
+    @Override
+    public void onInteract(int position, int what) {
+        if (what==PLUS){
+
+        }
+        else if(what==MINUS){
+
+        }
+    }
 }

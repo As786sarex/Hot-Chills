@@ -29,6 +29,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private Context context;
     private List<Product> productList;
+    private OnItemIteractListener listner;
+
 
     public CartAdapter(Context context) {
         this.context = context;
@@ -65,12 +67,32 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         ImageView thumbnail;
         TextView name,category,price;
 
-        public CartViewHolder(@NonNull View itemView) {
+        CartViewHolder(@NonNull View itemView) {
             super(itemView);
             thumbnail=itemView.findViewById(R.id.cart_item_thumbnail);
             name=itemView.findViewById(R.id.cart_item_name);
             price=itemView.findViewById(R.id.cart_item_price);
             category=itemView.findViewById(R.id.cart_item_category);
+            itemView.findViewById(R.id.cart_item_plus).setOnClickListener(i->{
+                if (listner!=null){
+                    int pos=getAdapterPosition();
+                    listner.onInteract(pos,OnItemIteractListener.PLUS);
+                }
+            });
+            itemView.findViewById(R.id.cart_item_minus).setOnClickListener(i->{
+                if (listner!=null){
+                    int pos=getAdapterPosition();
+                    listner.onInteract(pos,OnItemIteractListener.MINUS);
+                }
+            });
         }
+    }
+
+    public void setOnItemInteract(OnItemIteractListener listener){
+        this.listner=listener;
+    }
+    public interface OnItemIteractListener{
+        int PLUS=1,MINUS=-1;
+        void onInteract(int position,int what);
     }
 }

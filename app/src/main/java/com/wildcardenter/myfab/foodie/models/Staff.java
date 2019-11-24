@@ -11,4 +11,5 @@ public class Staff extends User {
     public Staff(String name, String email, String uid, int acCode) {
         super(name, email, uid, acCode);
     }
+
 }

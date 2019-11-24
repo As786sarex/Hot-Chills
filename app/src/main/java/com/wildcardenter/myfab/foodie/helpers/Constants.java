@@ -7,6 +7,9 @@ package com.wildcardenter.myfab.foodie.helpers;
 */
 
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Constants {
     public static final int TYPE_BOOLEAN = 54;
     public static final int TYPE_STRING = 58;
@@ -38,4 +41,11 @@ public class Constants {
 
     public static final String NOTIFICATIN_COLLECTION_NAME = "notifications";
     public static final String NOTIFICATON_TOPIC = "classes";
+    public static final List<String> category = Arrays.asList("All", "Italian",
+            "Continental","Chinese","Indian");
+
+    //references
+    public static final String PRODUCT_COLLECTION="Products";
+    public static final String CART_ITEM_REFER="CartItems";
+    public static final String FAB_ITEM_REF="Favorites";
 }
