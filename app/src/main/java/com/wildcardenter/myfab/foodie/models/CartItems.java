@@ -8,46 +8,37 @@ package com.wildcardenter.myfab.foodie.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "cart_items", foreignKeys = @ForeignKey(entity = Product.class,
-        parentColumns = "productId", childColumns = "productId"),indices = {@Index(value = "productId")})
+import org.jetbrains.annotations.NotNull;
+
+@Entity(tableName = "cart_items")
 public class CartItems {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    @NonNull
     private String productId;
     private int itemCount;
     private int price;
 
     @Ignore
-    public CartItems(int id, String productId, int itemCount, int price) {
+    public CartItems(@NotNull String productId, int itemCount, int price) {
         this.productId = productId;
         this.itemCount = itemCount;
         this.price = price;
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public CartItems() {
     }
 
-    @NonNull
+
+    @NotNull
     public String getProductId() {
         return productId;
     }
 
-    public void setProductId(@NonNull String productId) {
+    public void setProductId(@NotNull String productId) {
         this.productId = productId;
     }
 

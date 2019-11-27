@@ -8,8 +8,4 @@
         android:title="@string/all_products0"
         android:icon="@drawable/ic_check_white_24dp"
         />
-    <item
-        android:id="@+id/nav_bill_print"
-        android:title="Print Bill"
-        android:icon="@drawable/ic_attach_money_black_24dp"/>
 </menu>

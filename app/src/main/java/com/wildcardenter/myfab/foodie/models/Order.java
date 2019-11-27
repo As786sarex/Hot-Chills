@@ -7,25 +7,55 @@ package com.wildcardenter.myfab.foodie.models;
 */
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Order {
-    private String orderName;
+public class Order implements Serializable {
+    private String orderNumber;
     private int tableNo;
     private String uid;
     private int amount;
     private long timestamp;
     private String orderDate;
+    private boolean isPending;
     private List<String> itemNames;
 
+    public Order(String orderNumber, int tableNo, String uid, int amount,
+                 long timestamp, String orderDate, boolean isPending, List<String> itemNames) {
+        this.orderNumber = orderNumber;
+        this.tableNo = tableNo;
+        this.uid = uid;
+        this.amount = amount;
+        this.timestamp = timestamp;
+        this.orderDate = orderDate;
+        this.isPending = isPending;
+        this.itemNames = itemNames;
+    }
+
     public Order(String orderName, int tableNo, String uid, int amount, long timestamp, String orderDate, List<String> itemNames) {
-        this.orderName = orderName;
+        this.orderNumber = orderName;
         this.timestamp = timestamp;
         this.tableNo = tableNo;
         this.uid = uid;
         this.amount = amount;
         this.orderDate = orderDate;
         this.itemNames = itemNames;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public boolean isPending() {
+        return isPending;
+    }
+
+    public void setPending(boolean pending) {
+        isPending = pending;
     }
 
     public Order() {
@@ -48,11 +78,11 @@ public class Order {
     }
 
     public String getOrderName() {
-        return orderName;
+        return orderNumber;
     }
 
     public void setOrderName(String orderName) {
-        this.orderName = orderName;
+        this.orderNumber = orderName;
     }
 
     public String getUid() {

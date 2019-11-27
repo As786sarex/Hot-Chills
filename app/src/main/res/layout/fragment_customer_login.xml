@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".fragments.login.CustomerLoginFragment">
+    tools:context=".fragments.login.StaffLoginFragments">
 
     <ImageView
         android:layout_width="match_parent"
@@ -104,6 +104,7 @@
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/customer_open_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"

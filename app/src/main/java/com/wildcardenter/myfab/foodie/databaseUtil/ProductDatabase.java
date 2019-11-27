@@ -17,7 +17,7 @@ import com.wildcardenter.myfab.foodie.models.Product;
     Created by Asif Mondal on 03-10-2019 at 20:08
 */
 
-@Database(entities = {Product.class, CartItems.class, Favorite.class}, version = 2)
+@Database(entities = {Product.class, CartItems.class, Favorite.class}, version = 4)
 public abstract class ProductDatabase extends RoomDatabase {
     private static ProductDatabase instance = null;
 

@@ -6,43 +6,36 @@ package com.wildcardenter.myfab.foodie.models;
 */
 
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "fab_table", foreignKeys = @ForeignKey(entity =
-        Product.class, parentColumns = "productId",
-        childColumns = "productId"),indices = {@Index(value = "productId")})
+import org.jetbrains.annotations.NotNull;
+
+@Entity(tableName = "fab_table")
 public class Favorite {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    @NonNull
     private String productId;
 
     @Ignore
-    public Favorite(int id, String productId) {
-        this.id = id;
+    public Favorite(@NotNull String productId) {
         this.productId = productId;
     }
 
     public Favorite() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    @NotNull
     public String getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(@NotNull String productId) {
         this.productId = productId;
     }
 }

@@ -7,4 +7,5 @@
     <color name="loginStatusColor">#E1D52245</color>
     <color name="white">#D3E9E3E3</color>
     <color name="black">#131212</color>
+    <color name="card_dark_back">#FF424242</color>
 </resources>

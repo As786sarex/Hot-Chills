@@ -35,7 +35,10 @@ public class AllProductsFragment extends Fragment {
         FavouriteAdapter adapter=new FavouriteAdapter(getContext());
         MainMenuViewModel viewModel= ViewModelProviders.of(this)
                 .get(MainMenuViewModel.class);
-        adapter.setProducts(viewModel.dummyProducts());
+        viewModel.getAllProductsFromDb().observe(this,list->{
+            adapter.setProducts(list);
+            adapter.notifyDataSetChanged();
+        });
         recyclerView.setAdapter(adapter);
         view.findViewById(R.id.staff_add_item).setOnClickListener(o->{
             startActivity(new Intent(getContext(), AddItemActivity.class));

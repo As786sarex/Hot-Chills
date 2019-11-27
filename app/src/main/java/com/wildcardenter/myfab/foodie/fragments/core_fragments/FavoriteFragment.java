@@ -1,6 +1,7 @@
 package com.wildcardenter.myfab.foodie.fragments.core_fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,20 +14,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wildcardenter.myfab.foodie.R;
+import com.wildcardenter.myfab.foodie.activities.DetailedFoodActivity;
 import com.wildcardenter.myfab.foodie.adapters.FavouriteAdapter;
+import com.wildcardenter.myfab.foodie.models.Product;
 import com.wildcardenter.myfab.foodie.viewmodels.MainMenuViewModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FavoriteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends Fragment implements FavouriteAdapter.FabClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private List<Product> allFabs;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -35,6 +40,7 @@ public class FavoriteFragment extends Fragment {
     public FavoriteFragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -73,10 +79,24 @@ public class FavoriteFragment extends Fragment {
         LinearLayoutManager manager=new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
         favRecycler.setLayoutManager(manager);
         FavouriteAdapter adapter=new FavouriteAdapter(getContext());
-        adapter.setProducts(viewModel.dummyProducts());
+        viewModel.getFavProduct().observe(this,list->{
+            allFabs=list;
+            adapter.setProducts(list);
+            adapter.notifyDataSetChanged();
+        });
+        adapter.setOnFabClickListener(this);
         favRecycler.setAdapter(adapter);
 
         return view;
     }
 
+    @Override
+    public void onFabClick(int pos) {
+        if (allFabs != null) {
+            Product product = allFabs.get(pos);
+            Intent intent = new Intent(getContext(), DetailedFoodActivity.class);
+            intent.putExtra("detailed_product", product);
+            startActivity(intent);
+        }
+    }
 }

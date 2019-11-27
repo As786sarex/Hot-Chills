@@ -22,3 +22,8 @@
 -keepclassmembers class com.wildcardenter.myfab.foodie.models.** {
 *;
 }
+
+-keepclassmembers class com.paytm.pgsdk.paytmWebView$PaytmJavaScriptInterface {
+   public *;
+}
+

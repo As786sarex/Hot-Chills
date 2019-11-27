@@ -27,6 +27,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
 
     private Context context;
     private List<Product> products;
+    private FabClickListener listener;
 
     public FavouriteAdapter(Context context) {
         this.context = context;
@@ -59,10 +60,18 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         return products!=null?products.size():0;
     }
 
+    public void setOnFabClickListener(FabClickListener listener){
+        this.listener=listener;
+    }
+    public interface FabClickListener{
+        void onFabClick(int pos);
+        int listener=0;
+    }
 
     class FavouriteViewHolder extends RecyclerView.ViewHolder{
         ImageView thumbnail;
         TextView name,price,category;
+        View click;
 
         public FavouriteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +79,14 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
             name=itemView.findViewById(R.id.favourite_name);
             price=itemView.findViewById(R.id.favourite_price);
             category=itemView.findViewById(R.id.favourite_category);
+            click=itemView.findViewById(R.id.fab_click_container);
+            click.setOnClickListener(i->{
+                if (listener!=null){
+                    int pos=getAdapterPosition();
+                    listener.onFabClick(pos);
+                }
+            });
+
         }
     }
 }

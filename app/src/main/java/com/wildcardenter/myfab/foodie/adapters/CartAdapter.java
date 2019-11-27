@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.wildcardenter.myfab.foodie.R;
-import com.wildcardenter.myfab.foodie.fragments.core_fragments.ProfileFragment;
+import com.wildcardenter.myfab.foodie.models.CartItems;
 import com.wildcardenter.myfab.foodie.models.Product;
 
 import java.util.List;
@@ -30,6 +29,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private Context context;
     private List<Product> productList;
     private OnItemIteractListener listner;
+    private List<CartItems> cartList;
 
 
     public CartAdapter(Context context) {
@@ -54,6 +54,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             holder.name.setText(product.getProductName());
             holder.category.setText(product.getCategory());
             holder.price.setText(String.valueOf(product.getProductPrice()));
+            if (cartList!=null){
+                if (cartList.get(position)!=null){
+                    holder.item_count.setText(String.valueOf(cartList.get(position).getItemCount()));
+                }
+            }
         }
     }
 
@@ -62,10 +67,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return productList!=null?productList.size():0;
     }
 
+    public void setCartList(List<CartItems> li) {
+        this.cartList=li;
+    }
+
     class CartViewHolder extends RecyclerView.ViewHolder{
 
         ImageView thumbnail;
-        TextView name,category,price;
+        TextView name,category,price,item_count;
 
         CartViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +82,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             name=itemView.findViewById(R.id.cart_item_name);
             price=itemView.findViewById(R.id.cart_item_price);
             category=itemView.findViewById(R.id.cart_item_category);
+            item_count=itemView.findViewById(R.id.item_count);
             itemView.findViewById(R.id.cart_item_plus).setOnClickListener(i->{
                 if (listner!=null){
                     int pos=getAdapterPosition();

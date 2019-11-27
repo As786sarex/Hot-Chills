@@ -12,6 +12,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.wildcardenter.myfab.foodie.databaseUtil.Productepository;
 import com.wildcardenter.myfab.foodie.helpers.Constants;
+import com.wildcardenter.myfab.foodie.models.CartItems;
+import com.wildcardenter.myfab.foodie.models.Favorite;
 import com.wildcardenter.myfab.foodie.models.Product;
 
 import java.util.ArrayList;
@@ -58,5 +60,52 @@ public class MainMenuViewModel extends AndroidViewModel {
 
     public LiveData<List<Product>> getAllProductsFromDb(){
         return productRepository.getAllProducts();
+    }
+
+    public void updateCart(String pid,int price,int count){
+        productRepository.updateCartItem(pid,price,count);
+    }
+
+    public LiveData<List<Product>> getCartItems(){
+        return productRepository.getAllCartItem();
+    }
+    public LiveData<Integer> getSum(){
+        return productRepository.sumOfPrice();
+    }
+
+    public void insertCartIt(List<CartItems> cartItems){
+        productRepository.saveCartItems(cartItems);
+    }
+
+    public void deleteCartsById(String pid){
+        productRepository.deleteCartItem(pid);
+    }
+    public LiveData<List<CartItems>> getCartItemsRaw(){
+        return productRepository.getAllCarts();
+    }
+
+
+    //add fab
+    public void addFabItem(List<Favorite> list){
+        productRepository.saveFavorites(list);
+    }
+
+    public void deleteFabItem(String pid){
+        productRepository.deleteFavItem(pid);
+    }
+
+    public LiveData<List<Product>> getFavProduct(){
+        return productRepository.getAllFabProductRep();
+    }
+
+    public LiveData<String> isFabItemPresent(String pid){
+        return productRepository.isFabPresentRepo(pid);
+    }
+
+    public void deleteAllFabs(){
+        productRepository.deleteAllFabItem();
+    }
+    public void deleteAllCarts(){
+        productRepository.deleteAllCartItemRepo();
     }
 }

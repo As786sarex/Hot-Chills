@@ -23,9 +23,7 @@ import com.wildcardenter.myfab.foodie.models.Favorite;
 import com.wildcardenter.myfab.foodie.models.Product;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class Productepository {
@@ -45,7 +43,7 @@ public class Productepository {
         cartItemDao = database.getCartItemDao();
         favoriteDao = database.getFavDao();
         auth = FirebaseAuth.getInstance();
-        productList=new ArrayList<>();
+        productList = new ArrayList<>();
     }
 
     /**
@@ -137,16 +135,109 @@ public class Productepository {
     cart item recycler
      */
 
-    public void updateCartItem(int id, int price, int count, String pid) {
-        cartItemDao.updateCartItem(id, price, count);
+    public void updateCartItem(String pid, int price, int count) {
+        new UpdateCartItem(cartItemDao,pid,price,count).execute();
+    }
+    private static class UpdateCartItem extends AsyncTask<Void, Void, Void> {
+        private final int price;
+        private final String pid;
+        private final int count;
+        private CartItemDao cartItemDao;
+
+        UpdateCartItem(CartItemDao cartItemDao,String pid,int price,int count) {
+            this.cartItemDao = cartItemDao;
+            this.pid=pid;
+            this.price=price;
+            this.count=count;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            cartItemDao.updateCartItem(pid,price,count);
+            return null;
+        }
+    }
+    private static class DeleteCartItem extends AsyncTask<Void, Void, Void> {
+
+        private final String pid;
+        private CartItemDao cartItemDao;
+
+        DeleteCartItem(CartItemDao cartItemDao, String pid) {
+            this.cartItemDao = cartItemDao;
+            this.pid=pid;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            cartItemDao.deleteCartItem(pid);
+            return null;
+        }
+    }
+    private static class DeleteAllCartItem extends AsyncTask<Void, Void, Void> {
+
+        private CartItemDao cartItemDao;
+
+        DeleteAllCartItem(CartItemDao cartItemDao) {
+            this.cartItemDao = cartItemDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            cartItemDao.deleteAllCartItem();
+            return null;
+        }
     }
 
-    public int sumOfPrice() {
+    public void deleteAllCartItemRepo(){
+        new DeleteAllCartItem(cartItemDao).execute();
+    }
+
+
+    private static class DeleteFabItem extends AsyncTask<Void, Void, Void> {
+
+        private final String pid;
+        private FavoriteDao favoriteDao;
+
+        DeleteFabItem(FavoriteDao favoriteDao, String pid) {
+            this.favoriteDao=favoriteDao;
+            this.pid=pid;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            favoriteDao.deleteFromFab(pid);
+            return null;
+        }
+    }
+    private static class DeleteAllFabItem extends AsyncTask<Void, Void, Void> {
+
+        private FavoriteDao favoriteDao;
+
+        DeleteAllFabItem(FavoriteDao favoriteDao) {
+            this.favoriteDao=favoriteDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            favoriteDao.deleteAllFab();
+            return null;
+        }
+    }
+
+    public void deleteAllFabItem(){
+        new DeleteAllFabItem(favoriteDao).execute();
+    }
+
+    public LiveData<Integer> sumOfPrice() {
         return cartItemDao.sumOfPrice();
     }
+    public LiveData<List<CartItems>> getAllCarts(){
+        return cartItemDao.getCarts();
+    }
 
-    public void deleteCartItem(int id, String productId) {
+    public void deleteCartItem(String productId) {
         //TODO: deleteCrtItemFromServer() method
+        new DeleteCartItem(cartItemDao,productId).execute();
     }
 
 
@@ -163,18 +254,19 @@ public class Productepository {
                 }).addOnFailureListener(e -> Log.e(TAG, e.toString()));
     }
 
-    public void deleteCartItemFromServer(int id, String pid) {
+    public void deleteCartItemFromServer(String pid) {
         FirebaseDatabase.getInstance().getReference(Constants.CART_ITEM_REFER)
                 .child(Objects.requireNonNull(auth.getUid()))
                 .child(pid)
                 .removeValue()
-                .addOnSuccessListener(aVoid -> cartItemDao.deleteCartItem(id))
+                .addOnSuccessListener(aVoid -> cartItemDao.deleteCartItem(pid))
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "deleteCrtItemFromServer: failed");
                 });
     }
 
-    public void updateCartItemFromServer(int id, int price, int count, String pid) {
+
+    /*public void updateCartItemFromServer(String pid, int price, int count) {
         Map<String, Object> obj = new HashMap<>();
         obj.put("itemCount", count);
         obj.put("price", price);
@@ -183,16 +275,23 @@ public class Productepository {
                 .child(pid)
                 .updateChildren(obj)
                 .addOnSuccessListener(aVoid -> {
-                    cartItemDao.updateCartItem(id, price, count);
+                    cartItemDao.updateCartItem(pid, price, count);
                 });
+    }*/
+    public void updateCartItemFromServer(String pid, int price, int count) {
+        cartItemDao.updateCartItem(pid, price, count);
     }
 
-    public void deleteFavItem(int id, String pid) {
-        FirebaseDatabase.getInstance().getReference(Constants.FAB_ITEM_REF)
-                .child(Objects.requireNonNull(auth.getUid()))
-                .child(pid)
-                .removeValue()
-                .addOnSuccessListener(i -> favoriteDao.deleteFromFab(id, pid))
-                .addOnFailureListener(f -> Log.e(TAG, "deleteFavItem: failed"));
+
+    public void deleteFavItem(String pid) {
+         new DeleteFabItem(favoriteDao,pid).execute();
+    }
+
+    public LiveData<String> isFabPresentRepo(String pid){
+        return favoriteDao.isFabPresent(pid);
+    }
+
+    public LiveData<List<Product>> getAllFabProductRep(){
+        return favoriteDao.getAllFabProduvt();
     }
 }

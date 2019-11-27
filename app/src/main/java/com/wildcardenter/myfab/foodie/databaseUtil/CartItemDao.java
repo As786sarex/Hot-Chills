@@ -25,12 +25,18 @@ public interface CartItemDao {
     @Query("select * from products where productId in (select productId from cart_items)")
     LiveData<List<Product>> getAllCartItem();
 
-    @Query("delete from cart_items where id=:id")
-    void deleteCartItem(int id);
+    @Query("select * from cart_items")
+    LiveData<List<CartItems>> getCarts();
 
-    @Query("update cart_items set itemCount=:count,price=:price where id=:id")
-    void updateCartItem(int id, int price, int count);
+    @Query("delete from cart_items where productId=:pid")
+    void deleteCartItem(String pid);
+
+    @Query("update cart_items set itemCount=itemCount+:count,price=price+:price where productId=:pid")
+    void updateCartItem(String pid, int price, int count);
 
     @Query("select sum(price) from cart_items")
-    int sumOfPrice();
+    LiveData<Integer> sumOfPrice();
+
+    @Query("delete from cart_items")
+    void deleteAllCartItem();
 }

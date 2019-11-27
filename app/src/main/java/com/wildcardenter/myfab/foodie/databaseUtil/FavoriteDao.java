@@ -12,6 +12,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.wildcardenter.myfab.foodie.models.Favorite;
+import com.wildcardenter.myfab.foodie.models.Product;
 
 import java.util.List;
 
@@ -24,7 +25,16 @@ public interface FavoriteDao {
     @Query("select * from fab_table")
     LiveData<List<Favorite>> getAllFavorite();
 
-    @Query("delete from fab_table where id=:id or productId=:pid")
-    void deleteFromFab(int id,String pid);
+    @Query("select * from products where productId in (select productId from fab_table)")
+    LiveData<List<Product>> getAllFabProduvt();
+
+    @Query("select productId from fab_table where productId=:pid")
+    LiveData<String> isFabPresent(String pid);
+
+    @Query("delete from fab_table where productId=:pid")
+    void deleteFromFab(String pid);
+
+    @Query("delete from fab_table")
+    void deleteAllFab();
 
 }

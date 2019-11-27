@@ -48,4 +48,6 @@ public class Constants {
     public static final String PRODUCT_COLLECTION="Products";
     public static final String CART_ITEM_REFER="CartItems";
     public static final String FAB_ITEM_REF="Favorites";
+    public static final String CUSTOMER_COLLECTION="Customers";
+    public static final String STAFF_COLLECTION="Staffs";
 }

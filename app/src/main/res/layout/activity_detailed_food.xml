@@ -64,7 +64,7 @@
         android:paddingEnd="32dp"
         android:paddingBottom="16dp"
         android:text="View Details"
-        android:textColor="@color/black"
+        android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
